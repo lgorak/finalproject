@@ -1,0 +1,33 @@
+{
+    "collab_server" : "",
+    "contents" : "",
+    "created" : 1607547938280.000,
+    "dirty" : false,
+    "encoding" : "",
+    "folds" : "",
+    "hash" : "0",
+    "id" : "718EC474",
+    "lastKnownWriteTime" : 4441563514,
+    "last_content_update" : 1607547938280,
+    "path" : null,
+    "project_path" : null,
+    "properties" : {
+        "cacheKey" : "781B06A6",
+        "caption" : "fec_rename",
+        "contentUrl" : "grid_resource/gridviewer.html?env=&obj=fec_rename&cache_key=781B06A6",
+        "displayedObservations" : 2236,
+        "environment" : "",
+        "expression" : "fec_rename",
+        "object" : "fec_rename",
+        "preview" : 0,
+        "totalObservations" : 2236,
+        "variables" : 12
+    },
+    "read_only" : false,
+    "read_only_alternatives" : [
+    ],
+    "relative_order" : 4,
+    "source_on_save" : false,
+    "source_window" : "",
+    "type" : "r_dataframe"
+}

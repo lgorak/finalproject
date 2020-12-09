@@ -1,0 +1,81 @@
+## Packages
+
+library(tidyverse)
+library(readxl)
+library(humaniformat)
+
+## FEC Data Wrangling
+
+fec_raw <- read_excel("rawdata/ConCand7_2018_24m.xlsx")
+colnames(fec_raw) <- as.character(fec_raw[4, ])
+fec_raw <- fec_raw[-c(1:4), ]
+fec_raw <- fec_raw %>% select(-`Coverage End Date`)
+
+fec_rename <-
+  fec_raw %>% rename(
+    "candidate" = Candidate,
+    "state" = State,
+    "district" = District,
+    "party" = Party,
+    "receipts" = Receipts,
+    "party" = Party,
+    "ico" = `Incumbent/\r\nChallenger/Open`,
+    "idv_contr" = `Contributions \r\nfrom Individuals`,
+    "pac_contr" = `Contributions\r\nfrom PACs and\r\nOther Committees`,
+    "candidate_contr" = `Contributions and\r\nLoans from \r\n the Candidate`,
+    "total_spent" = Disbursements,
+    "onhand" = `Cash On Hand`,
+    "debts" = Debts) # Rename columns
+
+fec_data <-
+  fec_rename %>% mutate(district = as.numeric(district),
+                        receipts = as.numeric(receipts),
+                        idv_contr = as.numeric(idv_contr),
+                        pac_contr = as.numeric(pac_contr), 
+                        candidate_contr = as.numeric(candidate_contr), 
+                        total_spent = as.numeric(total_spent), 
+                        onhand = as.numeric(onhand),
+                        debts = as.numeric(debts)) # Make numbered columns numeric
+
+fec_data <-
+  fec_data %>% mutate(
+    party = recode(
+      party,
+      `Republican Party` = "republican",
+      `Democratic Party` = "democrat",
+      `Independent` = "independent", 
+      `Unknown` = "NA",
+      `Unaffiliated` = "NA",
+      `No Party Affiliation` = "NA",
+      `Green Party` = "green",
+      `Libertarian Party` = "libertarian",
+      `Democratic-Farm-Labor` = "democrat",
+      .default = "other")) # Recode party names. Small third parties coded as "other."
+
+fec_data <-
+  fec_data %>% mutate(ico = recode(
+    ico,
+    `Challenger` = "challenger",
+    `Incumbent` = "incumbent",
+    `Open` = "open", 
+    .default = "NA"
+  )) # Recode ico for sake of tidyness
+
+fec_data <- fec_data %>% na_if("NA") # Make sure anything NA is NA. 
+
+## Election Data Wrangling
+
+election_raw <- read_csv("rawdata/1976-2018-house2.csv")
+election_raw <- election_raw %>% filter(year == "2018")
+election_raw <- election_raw %>% filter(writein == "FALSE")
+election_2018 <- election_raw %>% select(state, state_po, )
+
+## District Data Wrangling
+
+
+
+# Parse names in each dataset using humaniformat
+
+# fec_data_pres <- fec_data_pres %>% mutate(full_name = format_reverse(candidate))
+
+

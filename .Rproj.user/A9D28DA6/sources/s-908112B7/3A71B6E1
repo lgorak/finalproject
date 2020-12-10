@@ -1,0 +1,33 @@
+{
+    "collab_server" : "",
+    "contents" : "",
+    "created" : 1607574930375.000,
+    "dirty" : false,
+    "encoding" : "",
+    "folds" : "",
+    "hash" : "0",
+    "id" : "3A71B6E1",
+    "lastKnownWriteTime" : 0,
+    "last_content_update" : 1607574930375,
+    "path" : null,
+    "project_path" : null,
+    "properties" : {
+        "cacheKey" : "E2C22556",
+        "caption" : "election_raw",
+        "contentUrl" : "grid_resource/gridviewer.html?env=&obj=election_raw&cache_key=E2C22556",
+        "displayedObservations" : 1208,
+        "environment" : "",
+        "expression" : "election_raw",
+        "object" : "election_raw",
+        "preview" : 0,
+        "totalObservations" : 1208,
+        "variables" : 19
+    },
+    "read_only" : false,
+    "read_only_alternatives" : [
+    ],
+    "relative_order" : 5,
+    "source_on_save" : false,
+    "source_window" : "",
+    "type" : "r_dataframe"
+}

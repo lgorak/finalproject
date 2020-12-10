@@ -1,30 +1,147 @@
 ---
-title: "Codebook"
+title: "Codebook for House_2018"
 author: "Lucas Gorak"
 date: "12/9/2020"
-output: html_document
+output:
+  pdf_document: default
+  html_document: default
 ---
 
 ```{r setup, include=FALSE}
 knitr::opts_chunk$set(echo = TRUE)
 ```
 
-## R Markdown
+## House_2018
 
-This is an R Markdown document. Markdown is a simple formatting syntax for authoring HTML, PDF, and MS Word documents. For more details on using R Markdown see <http://rmarkdown.rstudio.com>.
+This is a dataset containing general election candidates in U.S. House Congressional Elections in 2018. It was created using data from FEC, MIT Election Data Science Lab, FiveThirtyEight, and Cook Political Report. Citations can be found in the README.md file. 
 
-When you click the **Knit** button a document will be generated that includes both content as well as the output of any embedded R code chunks within the document. You can embed an R code chunk like this:
+### `candidate`
 
-```{r cars}
-summary(cars)
-```
+Candidate name.
 
-## Including Plots
+### `state`
 
-You can also embed plots, for example:
+State abbreviation (ex. CA, NY, FL).
 
-```{r pressure, echo=FALSE}
-plot(pressure)
-```
+### `district`
 
-Note that the `echo = FALSE` parameter was added to the code chunk to prevent printing of the R code that generated the plot.
+Congressional district as interger. 
+
+### `winner`
+
+If candidate won in general election. 0 = lost, 1 = won. 
+
+### `ico`
+
+Whether candidate is incumbent, challenger, or if it is an open seat.
+
+### `receipts`
+
+Total amount raised by the candidate. 
+
+### `votes`
+
+Votes earned by the candidate.
+
+### `can_party`
+
+The party of the candidate. 
+
+### `idv_contr`
+
+Individual contributions made to the candidate. 
+
+### `pac_contr`
+
+PAC/other committee contributions made to the candidate. 
+
+### `candidate_contr`
+
+Candidate contributions to their own campaign.
+
+### `total_spent`
+
+Total amount spent by the candidate (disbursments). 
+
+### `onhand`
+
+Cash onhand at the end of Q4 2018.
+
+### `debts`
+
+Amount in debt. 
+
+### `win_party`
+
+Winning party in that congressional district. 
+
+### `dem_votes` 
+
+Total votes for Democratic candidate in that district. 
+
+### `rep_votes`
+
+Total votes for Republican candidate in that district. 
+
+### `dem_perc`
+
+Percentage of votes won by the Democratic candidate. 
+
+### `rep_perc`
+
+Percentage of votes won by the Republican candidate. 
+
+### `dem_margin`
+
+Percent margin of Democratic Candidate. 
+
+### `rep_margin`
+
+Percent margin of Republican Candidate. 
+
+### `win_can`
+
+Winning candidate in that district. 
+
+### `dist_population`
+
+Population of district. 
+
+### `dist_population_18_over`
+
+Population of district that is over 18. 
+
+### `dist_cookPVI`
+
+Cook Political Report's Partisan Voting Index (PVI), a measure of the partisan lean of the district. 
+### `dist_white`
+
+The percentage of the district's 2010 voting-age population reported as "White alone" by the Census. 
+
+### `dist_africanamerican`
+
+The percentage of the district's 2010 voting-age population reported as "Black or African American alone" by the Census. 
+
+### `dist_latino`
+
+The percentage of the district's 2010 voting-age population reported as "Hispanic or Latino" by the Census. 
+
+### `dist_asian`
+
+The percentage of the district's 2010 voting-age population reported as "Asian alone" by the Census. 
+
+### `dist_nativeamerican`
+
+The percentage of the district's 2010 voting-age population reported as "American Indian and Alaska Native alone" by the Census. 
+
+### `dist_pacificislander`
+
+The percentage the district's 2010 voting-age population reported as "Native Hawaiian and Other Pacific Islander alone" by the Census.
+
+### `dist_other`
+
+The percentage of the district's 2010 voting-age population reported as a member of another race by the Census.
+
+### `dist_race_category`
+
+The district's race category, for the purposes of determining minority-majority districts. The value is either "Non-Hispanic White Majority" or "Maj-Min", with the majority racial category in parentheses. "Maj-Min (Coalition)" means a coalition of different minority groups make up the majority.

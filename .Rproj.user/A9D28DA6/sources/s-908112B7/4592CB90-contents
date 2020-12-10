@@ -1,12 +1,12 @@
-## Packages
+## Packages ##
 
 library(tidyverse)
 library(readxl)
 library(humaniformat)
 
-## FEC Data Wrangling
+## FEC Data Wrangling ##
 
-fec_url <- "https://github.com/lgorak/finalproject/raw/main/rawdata/ConCand7_2018_24m.xlsx"
+fec_url <- "https://github.com/lgorak/finalproject/raw/main/rawdata/FEC_24month_2018.xlsx"
 destfile <- "ConCand7_2018_24m.xlsx"
 curl::curl_download(fec_url, destfile)
 fec_raw <- read_excel(destfile)
@@ -67,23 +67,43 @@ fec_data <-
 
 fec_data <- fec_data %>% na_if("NA") # Make sure anything NA is NA. 
 
-## Election Data Wrangling
+## Election Data Wrangling ##
 
-election_raw <- read_csv("https://raw.githubusercontent.com/lgorak/finalproject/main/rawdata/1976-2018-house2.csv")
+election_raw <- read_csv("https://raw.githubusercontent.com/lgorak/finalproject/main/rawdata/MITLab_Electionresults_1976-2018.csv")
 election_raw <- election_raw %>% filter(year == "2018")
 election_raw <- election_raw %>% filter(writein == "FALSE")
-election_2018 <- election_raw %>% select(state, state_po, )
+election_2018 <-
+  election_raw %>% select(state,
+                          state_po,
+                          district,
+                          candidate,
+                          party,
+                          candidatevotes,
+                          totalvotes)
 
-## Election Winner Data
+## Election Winner Data ##
 
+win_raw <- read_csv("https://raw.githubusercontent.com/lgorak/finalproject/main/rawdata/CookPR_Electionwinner_2-18.csv")
+win_2018 <-
+  win_raw %>% select("district" = Dist,
+                     "win_can" = `2018 Winner`,
+                     "dem_votes" = `Dem Votes`,
+                     "rep_votes" = `GOP Votes`,
+                     "dem_perc" = `Dem %`,
+                     "rep_perc" = `GOP %`,
+                     "dem_margin" = `Dem Margin`)
+win_2018 <- win_2018 %>% mutate("rep_margin" = dem_margin * -1)
+win_2018 <- win_2018 %>% separate(win_can, c("win_can", "win_party"), " \\(")
+win_2018 <- win_2018 %>% mutate(win_party = recode(win_party, `R)` = "republican", `D)` = "democrat"))
 
+## District Data Wrangling ##
 
-## District Data Wrangling
-
-context_raw <- read_csv("https://raw.githubusercontent.com/lgorak/finalproject/main/rawdata/election-context-2018.txt")
+context_raw <- read_csv("https://raw.githubusercontent.com/lgorak/finalproject/main/rawdata/FiveThirtyEight_Electioncontext_2018.txt")
 context_raw <- context_raw %>% filter(maptype == "current")
 
-# Parse names in each dataset using humaniformat
+## Parse names in each dataset using humaniformat ##
+
+
 
 # fec_data_pres <- fec_data_pres %>% mutate(full_name = format_reverse(candidate))
 

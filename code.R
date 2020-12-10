@@ -1,12 +1,16 @@
-## Packages
+## Packages ##
 
 library(tidyverse)
 library(readxl)
 library(humaniformat)
 
-## FEC Data Wrangling
+## FEC Data Wrangling ##
 
-fec_raw <- read_excel("rawdata/ConCand7_2018_24m.xlsx")
+fec_url <- "https://github.com/lgorak/finalproject/raw/main/rawdata/FEC_24month_2018.xlsx"
+destfile <- "ConCand7_2018_24m.xlsx"
+curl::curl_download(fec_url, destfile)
+fec_raw <- read_excel(destfile)
+
 colnames(fec_raw) <- as.character(fec_raw[4, ])
 fec_raw <- fec_raw[-c(1:4), ]
 fec_raw <- fec_raw %>% select(-`Coverage End Date`)
@@ -63,19 +67,25 @@ fec_data <-
 
 fec_data <- fec_data %>% na_if("NA") # Make sure anything NA is NA. 
 
-## Election Data Wrangling
+## Election Data Wrangling ##
 
-election_raw <- read_csv("rawdata/1976-2018-house2.csv")
+election_raw <- read_csv("https://raw.githubusercontent.com/lgorak/finalproject/main/rawdata/MITLab_Electionresults_1976-2018.csv")
 election_raw <- election_raw %>% filter(year == "2018")
 election_raw <- election_raw %>% filter(writein == "FALSE")
 election_2018 <- election_raw %>% select(state, state_po, )
 
-## District Data Wrangling
+## Election Winner Data ##
 
-context_raw <- read_csv("https://raw.githubusercontent.com/fivethirtyeight/redistricting-atlas-data/master/districts.csv")
+win_raw <- read_csv("https://raw.githubusercontent.com/lgorak/finalproject/main/rawdata/CookPR_Electionwinner_2-18.csv")
+
+## District Data Wrangling ##
+
+context_raw <- read_csv("https://raw.githubusercontent.com/lgorak/finalproject/main/rawdata/FiveThirtyEight_Electioncontext_2018.txt")
 context_raw <- context_raw %>% filter(maptype == "current")
 
-# Parse names in each dataset using humaniformat
+## Parse names in each dataset using humaniformat ##
+
+
 
 # fec_data_pres <- fec_data_pres %>% mutate(full_name = format_reverse(candidate))
 

@@ -72,7 +72,8 @@ election_2018 <- election_raw %>% select(state, state_po, )
 
 ## District Data Wrangling
 
-
+context_raw <- read_csv("https://raw.githubusercontent.com/fivethirtyeight/redistricting-atlas-data/master/districts.csv")
+context_raw <- context_raw %>% filter(maptype == "current")
 
 # Parse names in each dataset using humaniformat
 

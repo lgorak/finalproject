@@ -1,0 +1,2 @@
+"0","House_2018 %>% ggplot(aes(state, receipts, fill = can_party)) + geom_col() + scale_fill_manual(breaks = c(""democrat"", ""green"", ""independent"", ""libertarian"", ""other"", ""republican""), values = c(""blue"", ""green"", ""purple"", ""orange"", ""yellow"", ""red"")) + theme(axis.text.x = element_text(size = 8, angle = 90))"
+"0",""

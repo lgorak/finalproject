@@ -13,7 +13,7 @@ fec_raw <- read_excel(destfile)
 
 colnames(fec_raw) <- as.character(fec_raw[4, ])
 fec_raw <- fec_raw[-c(1:4), ]
-fec_raw <- fec_raw %>% select(-`Coverage End Date`)
+fec_raw <- fec_raw %>% select(-c(`Coverage End Date`, `State`, `District`))
 
 fec_data <-
   fec_raw %>% rename(
@@ -73,8 +73,7 @@ election_2018 <-
   election_raw %>% select("state" = state_po,
                           district,
                           candidate,
-                          candidatevotes,
-                          totalvotes)
+                          "votes" = totalvotes)
 
 ## Election Winner Data ##
 
@@ -145,9 +144,23 @@ win_2018_fixnames <- win_2018_fixnames %>% select(-c(lastname, firstname, extra)
 
 context_win_2018 <- win_2018_fixnames %>% full_join(context_2018, by = c("state", "district")) #Combine winner data with context data using congressional district
 votes_win_context <- context_win_2018 %>% left_join(election_2018_fixnames, by = c("state", "district"))
+votes_win_context <- votes_win_context %>% distinct(.keep_all = TRUE)
 votes_win_context_FEC <- votes_win_context %>% left_join(fec_data_fixnames, by = "candidate")
 
 ## Combine and Clean Everything ##
 
 votes_win_context_FEC <- votes_win_context_FEC %>% mutate(winner = (win_can == candidate))
+votes_win_context_FEC$winner <- votes_win_context_FEC$winner %>% as.character()
+votes_win_context_FEC <- votes_win_context_FEC %>% mutate(winner = recode_factor(winner, "TRUE" = 1, "FALSE" = 0))
+
+colnames(votes_win_context_FEC)
+colorder <- c(22, 1, 2, 33, 25, 26, 23, 24, 27, 28, 29, 30, 31, 32, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20, 21)
+
+House_2018 <- votes_win_context_FEC[, colorder]
+House_2018
+
+colnames(House_2018)
+
+
+# write_csv(House_2018, "finalproject")
 

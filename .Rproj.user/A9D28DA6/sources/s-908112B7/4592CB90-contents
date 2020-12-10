@@ -159,5 +159,8 @@ colorder <- c(22, 1, 2, 33, 25, 26, 23, 24, 27, 28, 29, 30, 31, 32, 3, 4, 5, 6, 
 House_2018 <- votes_win_context_FEC[, colorder]
 House_2018
 
+colnames(House_2018)
+
+
 # write_csv(House_2018, "finalproject")
 

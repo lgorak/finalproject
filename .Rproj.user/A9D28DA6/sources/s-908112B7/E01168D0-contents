@@ -1,0 +1,66 @@
+---
+title: "Example Figures"
+author: "Lucas Gorak"
+date: "12/9/2020"
+output: html_document
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+
+library(tidyverse)
+library(ggplot2)
+
+House_2018 <- read_csv("https://raw.githubusercontent.com/lgorak/finalproject/main/House_2018.csv")
+```
+
+The following are examples of figures created using the `House_2018` dataset. 
+
+
+## Democratic Margin by Amount Raised
+
+```{r, message=FALSE, error=FALSE, warning=FALSE, echo=FALSE}
+ggplot(House_2018, aes(dem_margin, total_spent, color = can_party)) + geom_point(size = .4) + geom_smooth(method = loess, se = FALSE) + coord_cartesian(ylim = c(0, 9831182)) + scale_color_manual(breaks = c("democrat", "green", "independent", "libertarian", "other", "republican"), values = c("blue", "green", "purple", "orange", "yellow", "red"))
+```
+
+This graph shows the Democratic margin by total receipts (total amount raised from all sources), with trend lines. Fundraising was higher in close races, and Democrats outraising Republicans across the board. Republicans seemed to rise more in districts they were defending. 
+
+## Individual Contributions by District Race Category
+
+```{r, message=FALSE, error=FALSE, warning=FALSE, echo=FALSE}
+ggplot(House_2018, aes(dist_race_category, idv_contr)) + geom_violin() + geom_hline(yintercept = 462315.4, linetype = "dashed", color = "red")
+```
+
+This violin graph shows the distribution of individual contributions by each district race category.The red dotted line is the median amount of individual contributions raised ($462,315.40).  Majority-minority districts where African-Americans or Latinos had the majority tend to have lower individual contributions. Interestingly, the distribution of majority-minority ditricts with no majority racial group closely mirrors that of districts with a white majority.  
+
+
+## Total Raised by Type of Race 
+
+```{r, message=FALSE, error=FALSE, warning=FALSE, echo=FALSE}
+House_2018 %>% filter(!is.na(receipts)) %>% ggplot(aes(ico, receipts, na.rm = TRUE)) + geom_boxplot() 
+```
+
+This boxplot shows the amount raised by the type of race, meaning if the candidate was a challenger, incumbent, or if it was an open race. Incumbent candidates tended to raise more money, while the distribution among candidates in open races was much wider. While the median challenger raised relatively little money, there were still many challengers able to raise significant amounts. 
+
+## Total Amount Raised by State
+
+```{r, message=FALSE, error=FALSE, warning=FALSE, echo=FALSE}
+House_2018 %>% ggplot(aes(state, receipts, fill = can_party)) + geom_col() + scale_fill_manual(breaks = c("democrat", "green", "independent", "libertarian", "other", "republican"), values = c("blue", "green", "purple", "orange", "yellow", "red")) + theme(axis.text.x = element_text(size = 8, angle = 90))
+
+```
+
+This bar chart shows the total amount raised by state, with each party a different color. The states with the most total amount of money raised by candidates were some of the most populous states: California, Texas, New York, Florida, and Illinois. While Democrats far outraised Republicans in California and New York, Republicans comparable amounts or more in Texas, Florida, and North Carolina. 
+
+## Linear Model for `Dem Margin`
+
+```{r, message=FALSE, error=FALSE, warning=FALSE, echo=FALSE}
+summary(lm(dem_margin ~ dist_cookPVI + idv_contr + candidate_contr + pac_contr + dist_population_18_over + dist_white + dist_africanamerican, data = House_2018))
+```
+
+This is an example of a linear model enabled by `House_2018`. Understandably, this linear model shows that Democrats margin was most explained by the partisan lean of the district, measure here by Cook PVI. 
+
+```{r, message=FALSE, error=FALSE, warning=FALSE, echo=FALSE}
+summary(lm(dem_margin ~ idv_contr + candidate_contr + pac_contr + dist_population_18_over + dist_white + dist_africanamerican, data = House_2018))
+```
+
+When the Cook PVI is removed from the model, the most statistically significant explanatory data are the number of voting population over 18 and the percentage of the district that is white. 

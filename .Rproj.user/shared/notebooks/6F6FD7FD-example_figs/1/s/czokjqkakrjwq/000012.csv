@@ -1,0 +1,1 @@
+"0","House_2018 %>% filter(!is.na(receipts)) %>% ggplot(aes(ico, receipts, na.rm = TRUE)) + geom_boxplot() "

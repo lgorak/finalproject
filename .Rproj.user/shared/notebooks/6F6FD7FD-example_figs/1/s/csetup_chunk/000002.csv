@@ -1,0 +1,21 @@
+"0","knitr::opts_chunk$set(echo = TRUE)"
+"0",""
+"0","library(tidyverse)"
+"0","library(ggplot2)"
+"0",""
+"0","House_2018 <- read_csv(""https://raw.githubusercontent.com/lgorak/finalproject/main/House_2018.csv"")"
+"2","Parsed with column specification:
+cols(
+  .default = col_double(),
+  candidate = [31mcol_character()[39m,
+  state = [31mcol_character()[39m,
+  ico = [31mcol_character()[39m,
+  can_party = [31mcol_character()[39m,
+  win_party = [31mcol_character()[39m,
+  win_can = [31mcol_character()[39m,
+  dist_other = [31mcol_character()[39m,
+  dist_race_category = [31mcol_character()[39m
+)
+"
+"2","See spec(...) for full column specifications.
+"

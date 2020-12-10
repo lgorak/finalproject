@@ -1,0 +1,1 @@
+"0","ggplot(House_2018, aes(dem_margin, total_spent, color = can_party)) + geom_point(size = .4) + geom_smooth(method = loess, se = FALSE) + coord_cartesian(ylim = c(0, 9831182)) + scale_color_manual(breaks = c(""democrat"", ""green"", ""independent"", ""libertarian"", ""other"", ""republican""), values = c(""blue"", ""green"", ""purple"", ""orange"", ""yellow"", ""red""))"
